@@ -1,0 +1,19 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - secure: "NgvAM+9v69lMXcGHgRAFqXAzLO26scZfoRTP/LCbkMnCJQfSLCOQOeXvnq6/IHHdzyUPiN9VV1esibeOMtysuR1/b4lLfjh7EzWuKVmJgzjKoVWPHzgTXxDYeetWyBVqpkstms5pahlwNHiQLaw7emnw3fSRy5kEz+fjFqhQphyIU+IoMNX2C8tP4Wps7ZhCTT8l6NkJnIEafQsj08Tf0QufigTtAS13WLpHvZqLWjqmVtY7nA7nIL4em47h8Wql+Gqy2blh2AXxCrdALHxpS8CCr/BWVt2Tn3MVzTWn0G/yHwzShYQBakAirm+1+sPxCShdxVNNJqsnbDjVOhDdIqP5+qinSTpyI3tW6AGYOw2MZAVh04oKDx2BFeDp6mSJFOMLl0kuFYuh1yy/h/+8LlKV65zH0oeisPJlf++0JeFt+PDcCp6d/UIpLT/qWOQtzCearUCAezSevaGQP0fHokr3Tcc2SJMZGA8UgonbuxP1aA1sr0a32cNpEghh1ku4yF7hxa5T8sHLc0f2uZjWk0uBt4yE3+6b6XAN1+Uj+2JiVu3BJyx8xsFq8tC5KaclZFuEepOi/2rRDD5SsIA5HreGxpUk/iP17DmwRUfNmq6nQlBMd2qt1oXtO8VCZbWu2IklQTB5TKSZ2+exqp9cORLYVE2u+6+4q04hyyCh23E=" # DOCKER_USER
+    - secure: "ErCgDWUdpSBm1JK0E3DtrTc5S5FY1EyH16rXFWpHJyXvBw3p4LuE9RcB0PzVHUuY+eoc2EH2Yo7H40mHDO8VrpUVdSXsJEdad1P9zn/9vTuOYmgQzQpPARBjXVtxZjcmJvd36ZMN8Khwb2L2Tm2h/L19ihQULJhuDOnkmr0FW2u0xdtOrpYVCxeGOd0IzUrpuRuVfACgShYggyVyZNZCPEk+GkJp3y+kWqBP1S05LMVMkpYEGWFvRRPtPSEzKLeoo8DJ2VJPJmnpXwCpQ2gGi213Gue7+g7SwE5Z8f4rRRpYS4qu37yo2O92KeWS5PEbPImuLm57I8ea8BHXB/BPMkXz4oMGVGXg4IzDKYdNasYPzpl+wRTnbcxGTs6GEgfVLXv69zRXsYUi4ACmpB8b3akaFMPW2X/B/u6N22BVTy7CvsgxZqDue7aLlcjU+PAEIbwKo1gAOxWjaVOY6K8V8wFUg8PARIOL/ARfpCwenqCGzNTQ4yppcyaCSPCbx6o37+HZOPlhgKgcnTajcCJtI3gCKllx9d2+2v2ssGTrcEybJPFN//LrH97UIu4ZjH/FXWXfIQqqk9huPJUG+aD5nJJbe4QNP8IFHdvFgnErHCE1ONspYHNbVL4NZPJbGsMZBBiRFcuVdlanx+k8u33iwe4RQaILz9oy8s7s9LRzf4A=" # DOCKER_PASS
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=tercen/tidyrustdart
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
