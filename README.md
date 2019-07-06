@@ -13,6 +13,5 @@ Utility docker container for R tidyverse, rust, and dart.
 docker pull tercen/dartrusttidy:latest
 ```
 
-
-
+ 
 
