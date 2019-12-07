@@ -5,7 +5,7 @@ USER root
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
-    RUST_VERSION=1.34.1
+    RUST_VERSION=1.39.0
 
 RUN set -eux; \
     dpkgArch="$(dpkg --print-architecture)"; \
@@ -27,7 +27,7 @@ RUN set -eux; \
     cargo --version; \
     rustc --version;
 
-ENV DART_VERSION 2.4.0-1
+ENV DART_VERSION 2.6.1-1
 
 RUN \
   apt-get -q update && apt-get install --no-install-recommends -y -q gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
