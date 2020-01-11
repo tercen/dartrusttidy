@@ -54,3 +54,9 @@ RUN apt-get update && apt-get -y install \
     apt-get update && \
     apt-get install -y docker-ce && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# install renv
+# see https://github.com/tercen/log_operator/blob/master/renv/activate.R
+ENV RENV_PATHS_LIBRARY="/usr/local/lib/R/renv/library"
+RUN mkdir -p ${RENV_PATHS_LIBRARY}/R-3.5/x86_64-pc-linux-gnu
+RUN R -e "remotes::install_github('rstudio/renv@0.9.2-19', lib='${RENV_PATHS_LIBRARY}/R-3.5/x86_64-pc-linux-gnu')"

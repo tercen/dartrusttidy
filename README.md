@@ -10,7 +10,7 @@ Utility docker container for R tidyverse, rust, and dart.
 # build
 
 ```bash
-IMAGE=tercen/dartrusttidy:1.0.2
+IMAGE=tercen/dartrusttidy:1.0.3
 docker build -t ${IMAGE} .
 docker push ${IMAGE}
 ```
