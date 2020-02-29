@@ -27,7 +27,7 @@ RUN set -eux; \
     cargo --version; \
     rustc --version;
 
-ENV DART_VERSION 2.6.1-1
+ENV DART_VERSION 2.7.1-1
 
 RUN \
   apt-get -q update && apt-get install --no-install-recommends -y -q gnupg2 curl git ca-certificates apt-transport-https openssh-client && \
