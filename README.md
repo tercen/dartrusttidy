@@ -5,12 +5,12 @@ Utility docker container for R tidyverse, rust, and dart.
 
 - based on rocker/tidyverse:3.5.3 container
 - rust 1.40.0
-- dart 2.7.1-1
+- dart 2.10.5-1
 
 # build
 
 ```bash
-IMAGE=tercen/dartrusttidy:1.0.7
+IMAGE=tercen/dartrusttidy:1.0.9
 docker build -t ${IMAGE} .
 docker push ${IMAGE}
 ```
@@ -19,7 +19,7 @@ docker push ${IMAGE}
  
 ```bash
 docker pull tercen/dartrusttidy:latest
-docker pull tercen/dartrusttidy:1.0.6
+docker pull tercen/dartrusttidy:1.0.9
 ```
 
  
