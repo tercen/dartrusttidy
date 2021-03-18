@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.5.3
+FROM rocker/tidyverse:4.0.3
 
 USER root
 
@@ -42,6 +42,7 @@ ENV DART_SDK /usr/lib/dart
 ENV PATH $DART_SDK/bin:$PATH
 
 RUN apt-get update && apt-get -y install \
+    python \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -49,7 +50,7 @@ RUN apt-get update && apt-get -y install \
     software-properties-common  && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
     add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/debian \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
         stable" && \
     apt-get update && \
@@ -62,4 +63,5 @@ RUN apt-get update && apt-get -y install \
 #RUN mkdir -p ${RENV_PATHS_LIBRARY}/R-3.5/x86_64-pc-linux-gnu
 #RUN R -e "remotes::install_github('rstudio/renv@0.9.2-19', lib='${RENV_PATHS_LIBRARY}/R-3.5/x86_64-pc-linux-gnu')"
 
-RUN R -e "remotes::install_github('rstudio/renv@0.9.2-19')"
+#RUN R -e "remotes::install_github('rstudio/renv@0.9.2-19')"
+#RUN R -e "install.packages('openssl')"
